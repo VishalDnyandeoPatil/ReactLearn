@@ -3,6 +3,8 @@ import componentsImg from "./assets/Components.png";
 import propsImg from "./assets/config.png";
 import jsxImg from "./assets/jsx-ui.png";
 import stateImg from "./assets/state-mgmt.png";
+import { CORE_CONCEPTS } from "./data";
+
 
 const reactDescription = ["Fundamental", "Crucial", "Core"];
 
@@ -24,12 +26,12 @@ function Header() {
   );
 }
 
-const CoreConcept = (props) => {
+const CoreConcept = ({image, title, description}) => {
   return (
     <li>
-      <img src={props.image} alt={props.title}></img>
-      <h3> {props.title}</h3>
-      <p>{props.description}</p>
+      <img src={image} alt={title}></img>
+      <h3> {title}</h3>
+      <p>{description}</p>
     </li>
   );
 };
@@ -43,26 +45,10 @@ function App() {
         <section id="core-concepts">
           <h2>Core Concepts</h2>
           <ul>
-            <CoreConcept
-              title="Components"
-              description="The core UI building block - compose the user interface by combining multiple components."
-              image={componentsImg}
-            />
-            <CoreConcept
-              title="Props"
-              description="Make components configurable (and therefore reusable) by passing input data to them."
-              image={propsImg}
-            />
-            <CoreConcept
-              title="Jsx"
-              description="Return (potentially dynamic) HTML(ish) code to define the actual markup that will be rendered. "
-              image={jsxImg}
-            />
-            <CoreConcept
-              title="State"
-              description="React-managed data which, when changed, causes the component to re-render & the UI to update."
-              image={stateImg}
-            />
+            <CoreConcept {...CORE_CONCEPTS[0]}/>
+            <CoreConcept {...CORE_CONCEPTS[1]}/>
+            <CoreConcept {...CORE_CONCEPTS[2]}/>
+            <CoreConcept {...CORE_CONCEPTS[3]}/>
           </ul>
         </section>
       </main>
