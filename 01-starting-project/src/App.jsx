@@ -21,10 +21,10 @@ function App() {
         <section id = "examples">
           <h2>Examples</h2>
           <menu>
-            <TabButton label="Components"/>
-            <TabButton label="Jsx"/>
-            <TabButton label="Props"/>
-            <TabButton label="State"/>
+            <TabButton >Components</TabButton>
+            <TabButton >Jsx</TabButton>
+            <TabButton >Props</TabButton>
+            <TabButton >State</TabButton>
           </menu>
         </section>
       </main>
