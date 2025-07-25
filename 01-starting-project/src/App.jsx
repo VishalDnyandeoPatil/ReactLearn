@@ -4,8 +4,8 @@ import CoreConcept from "./components/CoreConcept/CoreConcept";
 import TabButton from "./components/TabButton/TabButton";
 
 function App() {
-  function handelSelect() {
-        console.log("Hello world!")
+  function handelSelect(selectedButton) {
+        console.log(`button clicks is ${selectedButton}`)
     }
 
   return (
@@ -25,10 +25,10 @@ function App() {
         <section id = "examples">
           <h2>Examples</h2>
           <menu>
-            <TabButton  onSelect={handelSelect}>Components</TabButton>
-            <TabButton  onSelect={handelSelect}>Jsx</TabButton>
-            <TabButton  onSelect={handelSelect}>Props</TabButton>
-            <TabButton  onSelect={handelSelect}>State</TabButton>
+            <TabButton  onSelect={()=>handelSelect('components')}>Components</TabButton>
+            <TabButton  onSelect={()=>handelSelect('jsx')}>Jsx</TabButton>
+            <TabButton  onSelect={()=>handelSelect('props')}>Props</TabButton>
+            <TabButton  onSelect={()=>handelSelect('state')}>State</TabButton>
           </menu>
         </section>
       </main>
