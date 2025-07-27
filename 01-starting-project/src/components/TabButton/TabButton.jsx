@@ -1,6 +1,8 @@
 import "./TabButton.css";
 
 export default function TabButton({ children, onSelect }) {
+  
+  console.log("Tab button component executing")
 
     return (
     <li>
