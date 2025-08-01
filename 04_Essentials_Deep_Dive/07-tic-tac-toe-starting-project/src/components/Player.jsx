@@ -9,7 +9,6 @@ export default function Player({initialName, symbol}){
     }
 
     function handelChange(event) {
-        console.log(event)
         setPlayerName(event.target.value);
     }
 
