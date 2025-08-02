@@ -3,15 +3,15 @@ import Player from "./components/Player";
 import GameBoard from "./components/GameBoard";
 import Log from "./components/Log";
 import { WINNING_COMBINATIONS } from "./winning-combinations";
+import GameOver from "./components/GameOver";
 
-function deriveActivePlayer(gameTurns){
+function deriveActivePlayer(gameTurns) {
+  let currentPlayer = "X";
 
-  let currentPlayer = 'X';
-
-      if(gameTurns.length>0 && gameTurns[0].player ==='X'){
-        currentPlayer = 'O';
-      }
-      return currentPlayer;
+  if (gameTurns.length > 0 && gameTurns[0].player === "X") {
+    currentPlayer = "O";
+  }
+  return currentPlayer;
 }
 
 const initialGameBoard = [
@@ -25,7 +25,7 @@ function App() {
   // const [hasWinner, setHasWinner] = useState(false);
   // const [activePlayer, setActivePlayer] = useState("X");
 
-  const activePlayer = deriveActivePlayer(gameTurns)
+  const activePlayer = deriveActivePlayer(gameTurns);
 
   let gameBoard = initialGameBoard;
 
@@ -35,21 +35,36 @@ function App() {
     gameBoard[row][col] = player;
   }
 
-  for(const combination of WINNING_COMBINATIONS){
-    const firstSquareSymbol = gameBoard[]
-    const secondSquareSymbol
-    const thirdSquareSymbol
+  let winner;
+
+  for (const combination of WINNING_COMBINATIONS) {
+    const firstSquareSymbol =
+      gameBoard[combination[0].row][combination[0].column];
+    const secondSquareSymbol =
+      gameBoard[combination[1].row][combination[1].column];
+    const thirdSquareSymbol =
+      gameBoard[combination[2].row][combination[2].column];
+
+    if (
+      firstSquareSymbol &&
+      firstSquareSymbol === secondSquareSymbol &&
+      firstSquareSymbol === thirdSquareSymbol
+    ) {
+      winner = firstSquareSymbol;
+    }
   }
+
+  const hasDraw = gameTurns.length === 9 && !winner ;
 
   function handelSelectSquare(rowIndex, colIndex) {
     // setActivePlayer((curActivePlayer) => (curActivePlayer === "X" ? "O" : "X"));
     setGameTurns((prevTurns) => {
-      let currentPlayer = deriveActivePlayer(prevTurns)
+      let currentPlayer = deriveActivePlayer(prevTurns);
       const updatedTurns = [
-        { square: { row: rowIndex, col: colIndex }, player: currentPlayer},
+        { square: { row: rowIndex, col: colIndex }, player: currentPlayer },
         ...prevTurns,
       ];
-      return updatedTurns
+      return updatedTurns;
     });
   }
 
@@ -68,12 +83,10 @@ function App() {
             isActive={activePlayer === "O"}
           />
         </ol>
-        <GameBoard
-          onSelectSquare={handelSelectSquare}
-          turns = {gameTurns}
-        />
+        {(winner || hasDraw) && <GameOver winner={winner} />}
+        <GameBoard onSelectSquare={handelSelectSquare} board={gameBoard} />
       </div>
-      <Log board={gameBoard} />
+      <Log turns={gameTurns} />
     </main>
   );
 }
