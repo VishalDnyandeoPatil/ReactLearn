@@ -8,6 +8,8 @@ const controlContainer = styled.div`
   margin-bottom: 1.5rem;
 `;
 
+const Label =
+
 export default function AuthInputs() {
   const [enteredEmail, setEnteredEmail] = useState("");
   const [enteredPassword, setEnteredPassword] = useState("");
