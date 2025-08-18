@@ -1,11 +1,13 @@
 import Header from "../src/components/Header.jsx";
-import Quiz from "../src/components/Quiz.jsx"
+import Quiz from "../src/components/Quiz.jsx";
 
 function App() {
   return (
     <>
-      <Header/>
-      <Quiz></Quiz>
+      <Header />
+      <main>
+        <Quiz />
+      </main>
     </>
   );
 }
