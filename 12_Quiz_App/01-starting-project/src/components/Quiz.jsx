@@ -10,13 +10,19 @@ export default function Quiz() {
   const activeQuestionIndex = userAnswers.length;
   const quizIsComplete = activeQuestionIndex === QUESTIONS.length;
 
-  const handelSelectAnswer= useCallback( function handelSelectAnswer(selectedAnswer) {
+  const handelSelectAnswer = useCallback(function handelSelectAnswer(
+    selectedAnswer
+  ) {
     setUserAnswers((prevUserAnswers) => {
       return [...prevUserAnswers, selectedAnswer];
     });
-  },[])
+  },
+  []);
 
-  const handelSkipAnswer = useCallback(() => handelSelectAnswer(null),[handelSelectAnswer]);
+  const handelSkipAnswer = useCallback(
+    () => handelSelectAnswer(null),
+    [handelSelectAnswer]
+  );
 
   if (quizIsComplete) {
     return (
@@ -34,6 +40,7 @@ export default function Quiz() {
     <div id="quiz">
       <div id="question">
         <QuestionTimer
+          key={activeQuestionIndex}
           timeout={10000}
           onTimeout={handelSkipAnswer}
         />
