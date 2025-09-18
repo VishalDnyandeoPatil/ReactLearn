@@ -5,19 +5,33 @@ import QuizCompleteImg from "../assets/quiz-complete.png";
 import QuestionTimer from "./QuestionTimer.jsx";
 
 export default function Quiz() {
+  const [answerState, setAnswerState] = useState("");
   const [userAnswers, setUserAnswers] = useState([]);
 
-  const activeQuestionIndex = userAnswers.length;
+  const activeQuestionIndex =
+    answerState === "" ? userAnswers.length : userAnswers.length - 1;
   const quizIsComplete = activeQuestionIndex === QUESTIONS.length;
 
-  const handelSelectAnswer = useCallback(function handelSelectAnswer(
-    selectedAnswer
-  ) {
-    setUserAnswers((prevUserAnswers) => {
-      return [...prevUserAnswers, selectedAnswer];
-    });
-  },
-  []);
+  const handelSelectAnswer = useCallback(
+    function handelSelectAnswer(selectedAnswer) {
+      setAnswerState("answered");
+      setUserAnswers((prevUserAnswers) => {
+        return [...prevUserAnswers, selectedAnswer];
+      });
+      setTimeout(() => {
+        if (selectedAnswer === QUESTIONS[activeQuestionIndex].answers[0]) {
+          setAnswerState("correct");
+        } else {
+          setAnswerState("wrong");
+        }
+
+        setTimeout(() => {
+          setAnswerState("");
+        }, 2000);
+      }, 1000);
+    },
+    [activeQuestionIndex]
+  );
 
   const handelSkipAnswer = useCallback(
     () => handelSelectAnswer(null),
@@ -46,13 +60,26 @@ export default function Quiz() {
         />
         <h2> {QUESTIONS[activeQuestionIndex].text}</h2>
         <ul id="answers">
-          {shuffledAnswer.map((answer) => (
-            <li key={answer} className="answer">
-              <button onClick={() => handelSelectAnswer(answer)}>
-                {answer}
-              </button>
-            </li>
-          ))}
+          {shuffledAnswer.map((answer) => {
+            const isSelected = userAnswers[userAnswers.length-1] === answer
+            let cssClass = "";
+            if(answerState === 'answered' && isSelected){
+              cssClass = 'selected'
+            }
+            if((answerState === 'correct' || answerState === 'wrong') && isSelected){
+              cssClass = answerState
+            }
+            return (
+              <li key={answer} className="answer">
+                <button
+                  onClick={() => handelSelectAnswer(answer)}
+                  className={cssClass}
+                >
+                  {answer}
+                </button>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </div>
