@@ -1,15 +1,20 @@
 import QuizCompleteImg from "../assets/quiz-complete.png";
 import QUESTIONS from "../questions.js";
 
-export default function Summary({ userAnswers}) {
-    const skippedAnswer = userAnswers.filter(answer => answer === null );
-    const correctAnswer = userAnswers.filter((answer,index) => answer === QUESTIONS[index].answers[0] )
+export default function Summary({ userAnswers }) {
+  const skippedAnswer = userAnswers.filter((answer) => answer === null);
+  const correctAnswer = userAnswers.filter(
+    (answer, index) => answer === QUESTIONS[index].answers[0]
+  );
 
-    const skippedAnswerShare = Math.round((skippedAnswer.length / userAnswers.length)*100)
-    const correctAnswerShare = Math.round((correctAnswer.length / userAnswers.length)*100)
-    const wrongAnsweredShare = 100 - skippedAnswerShare - correctAnswerShare
+  const skippedAnswerShare = Math.round(
+    (skippedAnswer.length / userAnswers.length) * 100
+  );
+  const correctAnswerShare = Math.round(
+    (correctAnswer.length / userAnswers.length) * 100
+  );
+  const wrongAnsweredShare = 100 - skippedAnswerShare - correctAnswerShare;
 
-    
   return (
     <div id="summary">
       <img src={QuizCompleteImg} alt="Trophy icon" />
